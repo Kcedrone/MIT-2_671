@@ -5,7 +5,14 @@ function [headers, data] = load_CSV_file(input_file)
 
     switch nargin
         case 0
-            [fn, pn] = uigetfile('*.csv');
+            [fn, pn, success] = uigetfile('*.csv');
+            
+            if ~success
+                fprintf('Error: no file selected.\n');
+                headers = NaN;
+                data = NaN;
+                return
+            end
             filename = strcat(pn, fn);
             
         otherwise
